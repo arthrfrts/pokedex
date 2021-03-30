@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import ky from "ky";
+  import PokeCard from "./components/PokeCard.svelte";
 
   let pokemons = [];
 
@@ -16,16 +17,7 @@
   <ul class="pokemons">
     {#each pokemons as { name, url, image }, index (index)}
       <li>
-        <article class="pokemon">
-          <header>
-            <h2 class="pokemon-name">{name}</h2>
-          </header>
-          <img
-            alt=""
-            src="//raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{index +
-              1}.png"
-          />
-        </article>
+        <PokeCard {name} {url} />
       </li>
     {/each}
   </ul>
