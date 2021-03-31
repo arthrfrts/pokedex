@@ -20,7 +20,7 @@
   };
 
   // Setting the next batch to load.
-  const handlePagination = (event) => {
+  const handlePagination = () => {
     offset += perPage;
   };
 </script>
