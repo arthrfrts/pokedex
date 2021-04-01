@@ -1,42 +1,21 @@
 <script>
-  import ky from "ky";
-  import PokeCard from "./components/PokeCard.svelte";
+  import { Router, Link, Route } from "svelte-routing";
 
-  let pokemons = [];
-  let offset = 0;
-  let perPage = 24;
+  import Home from "../routes/Home.svelte";
+  import Detail from "../routes/Detail.svelte";
 
-  $: {
-    getPokemon(offset);
-  }
-
-  // Fetching Pokémons from the API.
-  const getPokemon = async () => {
-    let requestURL = `//pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${perPage}`;
-
-    const data = await ky.get(requestURL).json();
-
-    pokemons = [...pokemons, ...data.results];
-  };
-
-  // Setting the next batch to load.
-  const handlePagination = () => {
-    offset += perPage;
-  };
+  export let url = "";
 </script>
 
-<div class="container">
-  <ul class="pokemons">
-    {#each pokemons as { name, url } (url)}
-      <li>
-        <PokeCard {name} {url} />
-      </li>
-    {/each}
+<Router {url}>
+  <header>
+    <h1>
+      <Link to="/">Pokédex</Link>
+    </h1>
+  </header>
 
-    {#if pokemons.length > 0}
-      <button type="button" id="load-more" on:click={handlePagination}>
-        Load more Pokemons!
-      </button>
-    {/if}
-  </ul>
-</div>
+  <main>
+    <Route path="/:id" component={Detail} />
+    <Route path="/" component={Home} />
+  </main>
+</Router>

@@ -1,4 +1,6 @@
 <script>
+  import {Link} from 'svelte-routing';
+
   export let name;
   export let url;
 
@@ -12,7 +14,11 @@
 
 <article>
   <header>
-    <h2>{name}</h2>
+    <h2>
+      <Link to="/{index}">
+        {name}
+      </Link>
+    </h2>
   </header>
 
   <img alt="" src={imgURL} role="presentation" />
