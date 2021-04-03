@@ -4,6 +4,8 @@
   import Home from "../routes/Home.svelte";
   import Detail from "../routes/Detail.svelte";
 
+  import "primer/css/core/index.scss";
+
   export let url = "";
 </script>
 

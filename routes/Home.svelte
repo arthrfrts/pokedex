@@ -23,7 +23,7 @@
   };
 </script>
 
-<ul class="pokemons">
+<ul>
   {#each pokemons as { name, url } (url)}
     <li>
       <PokeCard {name} {url} />
