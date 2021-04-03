@@ -4,8 +4,11 @@
   export let id;
   export let pokemon;
 
+  /*
+    We will use GitHub's Primer color system for this:
+    <https://primer.style/css/support/color-system>
+  */
   const TYPE_COLORS = {
-    // https://primer.style/css/support/color-system
     bug: "--color-scale-green-3",
     dark: "--color-scale-gray-9",
     dragon: "--color-scale-pink-9",
@@ -24,14 +27,28 @@
     rock: "--color-scale-gray-7",
     steel: "--color-scale-gray-4",
     water: "--color-scale-blue-4",
-  }
+  };
 
   const getPokemon = async (id) => {
     const pokeURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const pokeSpeciesURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
 
-    const pokeStats = await ky.get(pokeURL).json();
-    const pokeSpecies = await ky.get(pokeSpeciesURL).json();
+    try {
+      loading = true;
+
+      const pokeStats = await ky.get(pokeURL).json();
+
+      const { types } = pokeStats;
+
+      // Setting detail theme (using the Pokémon type).
+      const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
+    } catch (e) {
+      const serverResponse = await e.response.text();
+
+      loading = false;
+
+      error = serverResponse;
+    }
 
     console.debug(pokeStats);
     console.debug(pokeSpecies);
