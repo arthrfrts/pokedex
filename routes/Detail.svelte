@@ -28,22 +28,46 @@
     steel: "--color-scale-gray-4",
     water: "--color-scale-blue-4",
   };
-
   const getPokemon = async (id) => {
     let loading;
 
     const pokeURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const pokeSpeciesURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
 
+    /*
+      Flavor text is a huge array, so we will randomize which text will be shown
+      for fun!
+    */
+
+    const getFlavorText = (flavorTexts) => {
+      let pokeDescription = [];
+
+      pokeDescription = flavorTexts
+        .filter((flavor) => flavor.language.name === "en")
+        .map((item) => item.flavor_text);
+
+      const randomIndex = Math.floor(Math.random() * pokeDescription.length);
+
+      return pokeDescription[randomIndex];
+    };
+
     try {
       loading = true;
 
       const pokeStats = await ky.get(pokeURL).json();
+      const pokeSpecies = await ky.get(pokeSpeciesURL).json();
 
       const { name, types } = pokeStats;
+      const {
+        flavor_text_entries
+      } = pokeSpecies;
+
 
       // Setting detail theme (using the Pokémon type).
       const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
+
+      // Description
+      const detailDescription = getFlavorText(flavor_text_entries);
 
       pokemon = {
         name: name.toUpperCase(),
@@ -51,6 +75,7 @@
           name: type.type.name.toUpperCase(),
           color: TYPE_COLORS[type.type.name.toLowerCase()],
         })),
+        description: detailDescription
       };
     } catch (e) {
       loading = false;
