@@ -73,6 +73,8 @@
         growth_rate,
         gender_rate,
         egg_groups,
+        evolves_from_species,
+        genera,
       } = pokeSpecies;
 
       // Setting detail theme (using the Pokémon type).
@@ -110,7 +112,28 @@
         .join(", ");
 
       // EVs
-      const evs = stats.map(stat => `${stat.effort} ${stat.stat.name.toUpperCase().replace('-', ' ')}`).join(', ');
+      const evs = stats
+        .map(
+          (stat) =>
+            `${stat.effort} ${stat.stat.name.toUpperCase().replace("-", " ")}`
+        )
+        .join(", ");
+
+      // Evolution
+      let evolvesFrom = undefined;
+
+      if (evolves_from_species) {
+        evolvesFrom = {
+          name: evolves_from_species.name.toUpperCase(),
+          url: evolves_from_species.url.split("/")[
+            evolves_from_species.url.split("/").length - 2
+          ],
+        };
+      }
+
+      // Species
+      const species = genera.filter((genus) => genus.language.name === "en")[0]
+        .genus;
 
       pokemon = {
         name: name.toUpperCase(),
@@ -129,7 +152,9 @@
         genderRatio,
         eggGroups,
         abilities: detailAbilities,
-        evs
+        evs,
+        evolvesFrom,
+        species,
       };
 
       loading = false;
