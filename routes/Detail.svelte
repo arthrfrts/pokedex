@@ -8,10 +8,6 @@
   let loading;
   let error;
 
-  /*
-    We will use GitHub's Primer color system for this:
-    <https://primer.style/css/support/color-system>
-  */
   const TYPE_COLORS = {
     bug: "--type-bug",
     dark: "--type-dark",

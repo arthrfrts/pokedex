@@ -6,9 +6,6 @@
   import Type from "./Type.svelte";
 
   export let pokemon;
-
-  const femaleColor = "--color-scale-pink-3";
-  const maleColor = "--color-scale-blue-3";
 </script>
 
 <header class="pokedetails-header">
