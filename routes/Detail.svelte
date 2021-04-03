@@ -4,6 +4,9 @@
   export let id;
   export let pokemon;
 
+  let loading;
+  let error;
+
   /*
     We will use GitHub's Primer color system for this:
     <https://primer.style/css/support/color-system>
@@ -29,8 +32,6 @@
     water: "--color-scale-blue-4",
   };
   const getPokemon = async (id) => {
-    let loading;
-
     const pokeURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const pokeSpeciesURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
 
@@ -57,8 +58,8 @@
       const pokeStats = await ky.get(pokeURL).json();
       const pokeSpecies = await ky.get(pokeSpeciesURL).json();
 
-      const { name, types, sprites, stats } = pokeStats;
-      const { flavor_text_entries } = pokeSpecies;
+      const { name, types, sprites, stats, height, weight } = pokeStats;
+      const { flavor_text_entries, capture_rate, growth_rate } = pokeSpecies;
 
       // Setting detail theme (using the Pokémon type).
       const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
@@ -74,6 +75,9 @@
         };
       });
 
+      // Growth rate
+      const growthRate = growth_rate.name.toUpperCase().replace("-", " ");
+
       pokemon = {
         name: name.toUpperCase(),
         types: types.map((type) => ({
@@ -83,9 +87,19 @@
         description: detailDescription,
         sprites,
         stats: detailStats,
+        height,
+        weight,
+        captureRate: capture_rate,
+        growthRate,
+        detailTheme,
       };
+
+      loading = false;
     } catch (e) {
       loading = false;
+
+      const serverMessage = await e.response.text();
+      error = serverMessage;
     }
 
     console.debug(pokemon);
@@ -94,7 +108,10 @@
   $: getPokemon(id);
 </script>
 
-<h1>Detail Page</h1>
-<p>
-  {id}
-</p>
+{#if error}
+  {error}
+{:else if loading}
+  Loading…
+{:else}
+  Check your console!
+{/if}
