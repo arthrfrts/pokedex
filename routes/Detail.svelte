@@ -30,6 +30,8 @@
   };
 
   const getPokemon = async (id) => {
+    let loading;
+
     const pokeURL = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const pokeSpeciesURL = `https://pokeapi.co/api/v2/pokemon-species/${id}/`;
 
@@ -38,20 +40,23 @@
 
       const pokeStats = await ky.get(pokeURL).json();
 
-      const { types } = pokeStats;
+      const { name, types } = pokeStats;
 
       // Setting detail theme (using the Pokémon type).
       const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
+
+      pokemon = {
+        name: name.toUpperCase(),
+        types: types.map((type) => ({
+          name: type.type.name.toUpperCase(),
+          color: TYPE_COLORS[type.type.name.toLowerCase()],
+        })),
+      };
     } catch (e) {
-      const serverResponse = await e.response.text();
-
       loading = false;
-
-      error = serverResponse;
     }
 
-    console.debug(pokeStats);
-    console.debug(pokeSpecies);
+    console.debug(pokemon);
   };
 
   $: getPokemon(id);
