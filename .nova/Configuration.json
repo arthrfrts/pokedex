@@ -1,6 +1,12 @@
 {
   "apexskier.eslint.config.eslintConfigPath" : ".eslintrc.json",
+  "apexskier.eslint.config.eslintRulesDirs" : [
+    "node_modules\/eslint-config-standard",
+    "node_modules\/eslint\/lib\/rules"
+  ],
   "apexskier.eslint.config.fixOnSave" : "Enable",
+  "prettier.format-on-save" : "Enable",
+  "workspace.preview_append_paths" : false,
   "workspace.preview_type" : "custom",
   "workspace.preview_url" : "http:\/\/localhost:5000"
 }
