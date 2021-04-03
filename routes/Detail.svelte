@@ -58,8 +58,22 @@
       const pokeStats = await ky.get(pokeURL).json();
       const pokeSpecies = await ky.get(pokeSpeciesURL).json();
 
-      const { name, types, sprites, stats, height, weight } = pokeStats;
-      const { flavor_text_entries, capture_rate, growth_rate } = pokeSpecies;
+      const {
+        name,
+        types,
+        sprites,
+        stats,
+        height,
+        weight,
+        abilities,
+      } = pokeStats;
+      const {
+        flavor_text_entries,
+        capture_rate,
+        growth_rate,
+        gender_rate,
+        egg_groups,
+      } = pokeSpecies;
 
       // Setting detail theme (using the Pokémon type).
       const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
@@ -78,6 +92,26 @@
       // Growth rate
       const growthRate = growth_rate.name.toUpperCase().replace("-", " ");
 
+      // Gender ratio
+      const genderRate = gender_rate;
+      const genderRatio = {
+        female: 12.5 * genderRate,
+        male: 12.5 * (8 - genderRate),
+      };
+
+      // Eggs
+      const eggGroups = egg_groups
+        .map((group) => group.name.toUpperCase(group.name, " "))
+        .join(", ");
+
+      // Abilities
+      const detailAbilities = abilities
+        .map((ability) => ability.ability.name.toUpperCase().replace("-", " "))
+        .join(", ");
+
+      // EVs
+      const evs = stats.map(stat => `${stat.effort} ${stat.stat.name.toUpperCase().replace('-', ' ')}`).join(', ');
+
       pokemon = {
         name: name.toUpperCase(),
         types: types.map((type) => ({
@@ -92,6 +126,10 @@
         captureRate: capture_rate,
         growthRate,
         detailTheme,
+        genderRatio,
+        eggGroups,
+        abilities: detailAbilities,
+        evs
       };
 
       loading = false;
@@ -99,6 +137,7 @@
       loading = false;
 
       const serverMessage = await e.response.text();
+
       error = serverMessage;
     }
 
