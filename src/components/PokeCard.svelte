@@ -14,7 +14,12 @@
 
 <figure class="pokecard">
   <Link to="/{index}">
-    <img class="sprite" alt="{name.toUpperCase()} sprite" src={imgURL} role="presentation" />
+    <img
+      class="sprite"
+      alt="{name.toUpperCase()} sprite"
+      src={imgURL}
+      role="presentation"
+    />
   </Link>
 
   <figcaption>

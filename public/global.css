@@ -2,7 +2,7 @@
   --font: system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif,
     Apple Color Emoji, Segoe UI Emoji;
   --gutter: 1.5rem;
-  // Site colors
+  /* Site colors */
   --color-body: #fafafa;
   --color-text: #555;
   --color-details: #7a7a7a;
@@ -12,7 +12,7 @@
   --color-link-border-hover: rgba(0, 0, 0, 0.5);
   --color-headings: #333;
   --color-hr: rgba(0, 0, 0, .05);
-
+  /* Pokémon types */
   --type-normal: #aa9;
   --type-fire: #f42;
   --type-water: #39f;

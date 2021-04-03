@@ -66,11 +66,19 @@
     <dl>
       <dt>Gender Ratio:</dt>
       <dd>
-        <p>Female:<br />
-          <DataStats value={pokemon.genderRatio.female} statColor={pokemon.detailTheme} />
+        <p>
+          Female:<br />
+          <DataStats
+            value={pokemon.genderRatio.female}
+            statColor={pokemon.detailTheme}
+          />
         </p>
-        <p>Male:<br />
-          <DataStats value={pokemon.genderRatio.male} statColor={pokemon.detailTheme} />
+        <p>
+          Male:<br />
+          <DataStats
+            value={pokemon.genderRatio.male}
+            statColor={pokemon.detailTheme}
+          />
         </p>
       </dd>
       <dt>Egg Groups:</dt>

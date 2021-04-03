@@ -4,7 +4,7 @@ const app = require('./public/App.js')
 
 const server = express()
 
-server.use(express.static(path.join(__dirname, 'public')))
+server.use('/pokedex', express.static(path.join(__dirname, 'public')))
 
 server.get('*', function (req, res) {
   const { html } = app.render({ url: req.url })
