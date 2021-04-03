@@ -1,5 +1,5 @@
 <script>
-  import {Link} from 'svelte-routing';
+  import { Link } from "svelte-routing";
 
   export let name;
   export let url;
@@ -21,5 +21,7 @@
     </h2>
   </header>
 
-  <img alt="" src={imgURL} role="presentation" />
+  <Link to="/{index}">
+    <img alt="" src={imgURL} role="presentation" />
+  </Link>
 </article>

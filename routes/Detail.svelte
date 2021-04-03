@@ -1,5 +1,6 @@
 <script>
   import ky from "ky";
+  import PokeDetail from "../src/components/PokeDetail.svelte";
 
   export let id;
   export let pokemon;
@@ -78,7 +79,7 @@
       } = pokeSpecies;
 
       // Setting detail theme (using the Pokémon type).
-      const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
+      const detailTheme = TYPE_COLORS[types[0].type.name];
 
       // Description.
       const detailDescription = getFlavorText(flavor_text_entries);
@@ -172,10 +173,12 @@
   $: getPokemon(id);
 </script>
 
-{#if error}
-  {error}
-{:else if loading}
-  Loading…
-{:else}
-  Check your console!
-{/if}
+<article>
+  {#if error}
+    {error}
+  {:else if loading}
+    Loading
+  {:else}
+    <PokeDetail {pokemon} />
+  {/if}
+</article>
