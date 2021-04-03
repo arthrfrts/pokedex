@@ -70,10 +70,10 @@
       <dt>Gender Ratio:</dt>
       <dd>
         <p>Female:<br />
-          <DataStats value={pokemon.genderRatio.female} statColor={femaleColor} />
+          <DataStats value={pokemon.genderRatio.female} statColor={pokemon.detailTheme} />
         </p>
         <p>Male:<br />
-          <DataStats value={pokemon.genderRatio.male} statColor={maleColor} />
+          <DataStats value={pokemon.genderRatio.male} statColor={pokemon.detailTheme} />
         </p>
       </dd>
       <dt>Egg Groups:</dt>
@@ -101,11 +101,14 @@
     <p>
       {pokemon.name} evolves from
       <Link to="/{pokemon.evolvesFrom.url}">
-        {pokemon.evolvesFrom.name}
-      </Link>.
+        <span class="dex-number">#{pokemon.evolvesFrom.url}</span>
+        <strong>
+          {pokemon.evolvesFrom.name}
+        </strong>.
+      </Link>
     </p>
   {:else}
-    <p>{pokemon.name} does not evolve from another Pokemon.</p>
+    <p>{pokemon.name} does not evolve from another Pokémon.</p>
   {/if}
 </footer>
 
@@ -154,5 +157,9 @@
   dl dd {
     padding: 0.5rem;
     margin: 0;
+  }
+
+  footer {
+    text-align: center;
   }
 </style>
