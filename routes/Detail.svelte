@@ -57,17 +57,22 @@
       const pokeStats = await ky.get(pokeURL).json();
       const pokeSpecies = await ky.get(pokeSpeciesURL).json();
 
-      const { name, types } = pokeStats;
-      const {
-        flavor_text_entries
-      } = pokeSpecies;
-
+      const { name, types, sprites, stats } = pokeStats;
+      const { flavor_text_entries } = pokeSpecies;
 
       // Setting detail theme (using the Pokémon type).
       const detailTheme = TYPE_COLORS[types[types.length - 1].type.name];
 
-      // Description
+      // Description.
       const detailDescription = getFlavorText(flavor_text_entries);
+
+      // Stats
+      const detailStats = stats.map((stat) => {
+        return {
+          name: stat.stat.name.toUpperCase().replace("-", " "),
+          base_stat: stat.base_stat,
+        };
+      });
 
       pokemon = {
         name: name.toUpperCase(),
@@ -75,7 +80,9 @@
           name: type.type.name.toUpperCase(),
           color: TYPE_COLORS[type.type.name.toLowerCase()],
         })),
-        description: detailDescription
+        description: detailDescription,
+        sprites,
+        stats: detailStats,
       };
     } catch (e) {
       loading = false;
