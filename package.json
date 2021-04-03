@@ -1,6 +1,13 @@
 {
-  "name": "pokedex-with-svelte",
+  "name": "arthrfrts-pokedex",
+  "description": "A simple Pokédex made with Svelte",
   "version": "1.0.0",
+  "repository": "github:arthrfrts/pokedex",
+  "author": {
+    "name": "Arthur Freitas",
+    "email": "email@arthr.me",
+    "url": "https://arthrfrts-pokedex.vercel.app"
+  },
   "private": true,
   "scripts": {
     "build": "rollup -c",
