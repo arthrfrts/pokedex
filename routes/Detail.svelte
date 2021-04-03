@@ -137,6 +137,7 @@
         .genus;
 
       pokemon = {
+        id,
         name: name.toUpperCase(),
         types: types.map((type) => ({
           name: type.type.name.toUpperCase(),

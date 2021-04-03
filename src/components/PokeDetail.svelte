@@ -11,33 +11,8 @@
   const maleColor = "--color-scale-blue-3";
 </script>
 
-<style>
-  .pokedetails-header {
-    margin-bottom: 3rem;
-  }
-
-  .pokedetails-header .pokemon-type-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-
-  .datagroups {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: var(--gutter);
-  }
-
-  @media screen and (max-width: 600px) {
-    .datagroups {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
 <header class="pokedetails-header">
-  <h2>{pokemon.name}</h2>
+  <h2><span class="dex-number">#{pokemon.id}</span> {pokemon.name}</h2>
 
   <ul class="pokemon-type-list">
     {#each pokemon.types as type (type.name)}
@@ -52,7 +27,7 @@
 
 <Sprites sprites={pokemon.sprites} />
 
-<div class="datagroups">
+<div class="datagroups" style="--color-theme: var({pokemon.detailTheme});">
   <section class="dataset">
     <h3>Profile</h3>
     <dl>
@@ -92,10 +67,14 @@
   <section class="dataset">
     <h3>Breeding Stats</h3>
     <dl>
-      <dt>Gender Ratio (%F / %M):</dt>
+      <dt>Gender Ratio:</dt>
       <dd>
-        <DataStats value={pokemon.genderRatio.female} statColor={femaleColor} />
-        <DataStats value={pokemon.genderRatio.male} statColor={maleColor} />
+        <p>Female:<br />
+          <DataStats value={pokemon.genderRatio.female} statColor={femaleColor} />
+        </p>
+        <p>Male:<br />
+          <DataStats value={pokemon.genderRatio.male} statColor={maleColor} />
+        </p>
       </dd>
       <dt>Egg Groups:</dt>
       <dd>
@@ -108,7 +87,7 @@
     <h3>Base Stats</h3>
     <dl>
       {#each pokemon.stats as stat}
-        <dt>{stat.name}</dt>
+        <dt>{stat.name}:</dt>
         <dd>
           <DataStats value={stat.base_stat} statColor={pokemon.detailTheme} />
         </dd>
@@ -129,3 +108,51 @@
     <p>{pokemon.name} does not evolve from another Pokemon.</p>
   {/if}
 </footer>
+
+<style>
+  .pokedetails-header {
+    margin-bottom: 3rem;
+  }
+
+  .pokedetails-header .dex-number {
+    font-weight: 400;
+  }
+
+  .pokedetails-header .pokemon-type-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  .datagroups {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--gutter);
+  }
+
+  @media screen and (max-width: 600px) {
+    .datagroups {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  dl {
+    border: 1px solid var(--color-link-border);
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+
+  dl dt {
+    font-weight: 700;
+    background: var(--color-theme);
+    color: #fff;
+    text-shadow: 1px 1px 2px var(--color-details);
+  }
+
+  dl dt,
+  dl dd {
+    padding: 0.5rem;
+    margin: 0;
+  }
+</style>
