@@ -23,14 +23,22 @@
   };
 </script>
 
-<ul>
+<ol class="pokemon-list">
   {#each pokemons as { name, url } (url)}
     <li>
       <PokeCard {name} {url} />
     </li>
   {/each}
-</ul>
+</ol>
 
 <button type="submit" id="load-more" on:click={loadMore}>
   Load more Pokémon!
 </button>
+
+<style>
+  .pokemon-list {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+  }
+</style>
