@@ -16,7 +16,7 @@
   <header>
     <h2>
       <Link to="/{index}">
-        {name}
+        {name.toUpperCase()}
       </Link>
     </h2>
   </header>
